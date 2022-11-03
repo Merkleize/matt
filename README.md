@@ -36,13 +36,13 @@ Any interesting "state" of a smart contract can ultimately be encoded as a list,
 
 Whichever the choice, it does not really affect the kinds of computations that are expressible with either representation, as long as one is able to perform a reasonable set of basic computations on those elements.
 
-In the following, we will assume without loss of generality that computations happen on a state which is a list of fixed length $S = [s_1, s_2, ..., s_n]$, where each $s_i$ is a byte string.
+In the following, we will assume without loss of generality that computations happen on a state which is a list of fixed length *S*&nbsp;=&nbsp;[*s*<sub>1</sub>,&nbsp;*s*<sub>2</sub>,&nbsp;...,&nbsp;*s*<sub>*n*</sub>], where each *s*<sub>i</sub> is a byte string.
 
 ### Merkleized state
 
-By constructing a Merkle tree that has the (hashes of) the elements of $S$ in the leafs, we can produce a short commitment $h_S$ to the entire list $S$ with the following properties (that hold for a verifier that only knows $h_S$):
-- a $\sim(\log n$)-sized proof can prove the value of an element $s_i$
-- a $\sim(\log n + |x|)$-sized proof can prove the new commitment $h_{S'}$, where $S'$ is a new list obtained by replacing the value of a certain leaf with $x$.
+By constructing a Merkle tree that has the (hashes of) the elements of *S* in the leafs, we can produce a short commitment *h*<sub>*S*</sub> to the entire list *S* with the following properties (that hold for a verifier that only knows *h*<sub>*S*</sub>):
+- a (log&nbsp;*n*)-sized proof can prove the value of an element *s*<sub>*i*</sub>
+- a (log&nbsp;*n*&nbsp;+&nbsp;|*x*|)-sized proof can prove the new commitment *h*<sub>*S*'</sub>, where *S*' is a new list obtained by replacing the value of a certain leaf with *x*.
 
 ![A Merkle tree](/assets/merkletree.png)
 
@@ -89,15 +89,15 @@ In the following section, we will argue that a simple covenant construction suff
 
 # Commitments to computation and fraud challenges
 
-In this section, we explore how a smart contract that requires any non-trivial computation $f : X \mapsto Y$ (that is too expensive or not feasible with on-chain Script state transitions) can be implemented with the simple covenants described in the previous section.
+In this section, we explore how a smart contract that requires any non-trivial computation *f*&nbsp;:&nbsp;*X*&nbsp;↦&nbsp;*Y* (that is too expensive or not feasible with on-chain Script state transitions) can be implemented with the simple covenants described in the previous section.
 
-We want to be able to build contracts that allow conditions of the type $f(x) = y$; yet, we do not want the layer 1 to be forced to do expensive computation.
+We want to be able to build contracts that allow conditions of the type *f*(*x*)&nbsp;=&nbsp;*y*; yet, we do not want the layer 1 to be forced to do expensive computation.
 
-In the following, we assume for simplicity that Alice and Bob are the only participants of the covenant, and they both locked some funds $bond_A$ and $bond_B$ (resp.) inside the covenant's UTXO.
+In the following, we assume for simplicity that Alice and Bob are the only participants of the covenant, and they both locked some funds *bond*<sub>A</sub> and *bond*<sub>A</sub> (respectively) inside the covenant's UTXO.
 
-1) Alice posts the statement $f(x) = y$.
+1) Alice posts the statement "*f*(*x*)&nbsp;=&nbsp;*y*".
 2) After a *challenge period*, if no challenge happened, Alice is free to continue and unlock the funds; the statement is true.
-3) At any time before the *challenge period* expires, Bob can post a challenge "actually, $f(x) == z$".
+3) At any time before the *challenge period* expires, Bob can post a challenge: "actually, *f*(*x*)&nbsp;=&nbsp;*z*".
 
 In case of a challenge, Alice and Bob enter a challenge resolution protocol, arbitrated by layer 1; the winner takes the other party's bond (details and the exact game theory vary based on the type of protocol the challenge is part of; choosing the right amount of bonds is crucial for protocol design).
 
@@ -105,28 +105,28 @@ The remainder of this section sketches an instantiation of the challenge protoco
 
 ## The bisection protocol for arbitrary computation
 
-In this section, we sketch the challenge protocol for an arbitrary computation $f : X \mapsto Y$.
+In this section, we sketch the challenge protocol for an arbitrary computation *f*&nbsp;:&nbsp;*X*&nbsp;↦&nbsp;*Y*.
 
 ### Computation trace
 
-Given the function $f$, it is possible to decompose the entire computation in simple elementary steps the perform atomic operation. For example, if the domain of $x$ and $y$ is that of binary strings of a fixed length, it is possible to create a boolean circuit that takes $x$ and produces $y$; in practice, some form of assembly-like language operating on a RAM might be more efficient and fitting for bitcoin Script.
+Given the function *f*, it is possible to decompose the entire computation in simple elementary steps the perform atomic operation. For example, if the domain of *x* and *y* is that of binary strings of a fixed length, it is possible to create a boolean circuit that takes *x* and produces *y*; in practice, some form of assembly-like language operating on a RAM might be more efficient and fitting for bitcoin Script.
 
 In the following, we assume each elementary operation is operating on a RAM, encoded in the state via Merkle trees as sketched above.
-Therefore, one can represent all the steps of the computation as triples $tr_i = (st_i, op_i, st_{i+1})$, where $st_i$ is the state (e.g. a canonical Merkle tree of the RAM) before the $i$-th operation, $st_{i+1}$ is the state after, and $op_i$ is the description of the operation.
+Therefore, one can represent all the steps of the computation as triples *tr*<sub>*i*</sub>&nbsp;=&nbsp;(*st*<sub>*i*</sub>,&nbsp;*op*<sub>*i*</sub>,&nbsp;*st*<sub>*i*&nbsp;+&nbsp;1</sub>), where *st*<sub>*i*</sub> is the state (e.g. a canonical Merkle tree of the RAM) before the *i*-th operation, *st*<sub>*i*&nbsp;+&nbsp;1</sub> is the state after, and *op*<sub>*i*</sub> is the description of the operation (implementation-specific; it could be something like "add *a* to *b* and save the result in *c*).
 
-Finally, a Merkle tree $M_T$ is constructed that has as leafs the values of the individual computation steps $T = \{tr_0, tr_1, \dots, tr_{N-1}\}$ if the computation requires $N$ steps, producing the Merkle root $h_T$. The height of the Merkle tree is $\lceil \log N \rceil$. Observe that each internal node commits to the portion of the computation trace corresponding to its own subtree.
+Finally, a Merkle tree *M*<sub>*T*</sub> is constructed that has as leafs the values of the individual computation steps *T*&nbsp;=&nbsp;{*tr*<sub>0</sub>,&nbsp;*tr*<sub>1</sub>,&nbsp;...,&nbsp;*tr*<sub>*N*&nbsp;-&nbsp;1</sub>} if the computation requires *N* steps, producing the Merkle root *h*<sub>*T*</sub>. The height of the Merkle tree is ⌈log&nbsp;*N*⌉. Observe that each internal node commits to the portion of the computation trace corresponding to its own subtree.
 
-Let's assume that the Merkle tree commitments for internal nodes are further augmented with the state $st_{initial}, st_{end}$, respectively the state before the operation of in the leftmost leaf of the subtree, and after the rightmost leaf of the subtree.
+Let's assume that the Merkle tree commitments for internal nodes are further augmented with the state *st*<sub>*start*</sub>, *st*<sub>*end*</sub>, respectively the state before the operation of in the leftmost leaf of the subtree, and after the rightmost leaf of the subtree.
 
 ### Bisection protocol
 
-The challenge protocol begins with Alice posting what she claims is the computation trace $h_A$, while Bob disagrees with the trace $h_B \neq h_A$. Note that the arbitration mechanism knows $f$, $x$ and $y$, but not the correct computation trace hash $h_T$.
+The challenge protocol begins with Alice posting what she claims is the computation trace *h*<sub>*A*</sub>, while Bob disagrees with the trace *h*<sub>*B*</sub>&nbsp;≠&nbsp;*h*<sub>*A*</sub>; therefore, the challenge starts at the root of *M*<sub>*T*</sub>, and proceeds in steps in order to find a leaf where Alice and Bob disagree (which is guaranteed to exist, hence the disagreement). Note that the arbitration mechanism knows *f*, *x* and *y*, but not the correct computation trace hash *h*<sub>*T*</sub>.
 
-**(Bisection phase)**: While the challenge is at a non-leaf node of $M_T$, Alice and Bob take turns to post the two hashes correspoding to left and right child of their claimed computation trace hash; moreover, they post the initial/end state for each child node. The protocol enforces that Alice's transaction is only valid if the posted hashes $h_A^l$ and $h_A^r$, initial/final state for each child is consistent with the commitment of the current node.
+**(Bisection phase)**: While the challenge is at a non-leaf node of *M*<sub>*T*</sub>, Alice and Bob take turns to post the two hashes correspoding to left and right child of their claimed computation trace hash; moreover, they post the start/end state for each child node. The protocol enforces that Alice's transaction is only valid if the posted hashes *h*<sup>*l*</sup><sub>*A*</sub> and *h*<sup>*r*</sup><sub>*A*</sub>, and the declared start/end state for each child is consistent with the commitment of the current node.
 
-**(Arbitration phase):** If the protocol reached a leaf node, then each party reveals all $(st_i, op_i, st_{i+1})$; in fact, only the honest party will be able to reveal correct values, therefore the protocol can adjudicate the winner.
+**(Arbitration phase):** If the protocol reached a leaf node, then each party reveals (*st*<sub>*i*</sub>,&nbsp;*op*<sub>*i*</sub>,&nbsp;*st*<sub>*i*&nbsp;+&nbsp;1</sub>); in fact, only the honest party will be able to reveal correct values, therefore the protocol can adjudicate the winner.
 
-*Remark*: there is definitely a lot of room for optimizations; it is left for future work to find the optimal variation of the approach; moreover, different challenge mechanisms could be more appropriate for different functions $f$.
+*Remark*: there is definitely a lot of room for optimizations; it is left for future work to find the optimal variation of the approach; moreover, different challenge mechanisms could be more appropriate for different functions *f*.
 
 ### Game theory (or *why the chain will not see any of this*)
 
@@ -136,11 +136,11 @@ With the right economic incentives, protocol designers can guarantee that playin
 
 It is not difficult to see that the entire challenge-response protocol above can be implemented using the simple state transitions described above.
 
-Before a challenge begins, the state of the covenant contains the value of $x$, $y$ and the computation trace computed by Alice. When starting the challenge, Bob also adds its claim for the correct computation trace, and the covenant enters the bisection phase.
+Before a challenge begins, the state of the covenant contains the value of *x*, *y* and the computation trace computed by Alice. When starting the challenge, Bob also adds its claim for the correct computation trace, and the covenant enters the bisection phase.
 
-During the bisaction phase, the covenant contains the claimed computation trace for that node of the computation protocol, according to each party. In turns, each party has to reveal the corresponding computation trace for both the children of the current node; the transation is only valid if the hash of the current node can be computed correctly from the information provided by each party about the child nodes. The protocol repeats on one of the two child nodes on whose computation trace the two parties disagree (which is guaranteed to exist). If a leaf of $M_T$ is reached, the covenant enters the final arbitration phase.
+During the bisaction phase, the covenant contains the claimed computation trace for that node of the computation protocol, according to each party. In turns, each party has to reveal the corresponding computation trace for both the children of the current node; the transation is only valid if the hash of the current node can be computed correctly from the information provided by each party about the child nodes. The protocol repeats on one of the two child nodes on whose computation trace the two parties disagree (which is guaranteed to exist). If a leaf of *M*<sub>*T*</sub> is reached, the covenant enters the final arbitration phase.
 
-During the arbitration phase (say at the $i$-th leaf node of $M_T$), any party can win the challenge by providing correct values for the $tr_i = (st_i, op_i, st_{i+1})$. Crucially, only one party is able to provide correct values, and Script can verify that indeed the state moves from $st_i$ to $st_{i+1}$ by executing $op_i$. The challenge is over.
+During the arbitration phase (say at the *i*-th leaf node of *M*<sub>*T*</sub>), any party can win the challenge by providing correct values for the *tr*<sub>*i*</sub>&nbsp;=&nbsp;(*st*<sub>*i*</sub>,&nbsp;*op*<sub>*i*</sub>,&nbsp;*st*<sub>*i*&nbsp;+&nbsp;1</sub>). Crucially, only one party is able to provide correct values, and Script can verify that indeed the state moves from *st*<sub>*i*</sub> to *st*<sub>*i*&nbsp;+&nbsp;1</sub> by executing *op*<sub>*i*</sub>. The challenge is over.
 
 At any time, the covenant allows one player to automatically win the challenge after a certain timeout if the other party (who is expected to "make his move") does not spend the covenant. This guarantees that the protocol can always find a resolution.
 
@@ -233,9 +233,11 @@ Multiparty state channels are possible as well; therefore, constructions like [C
 
 Protocols based on ZK-proofs require the blockchain to be the *verifier*; the verifier is a function that takes a zero-knowledge proof and returns true/false based on its correctness.
 
-Instead of an OP_STARK operator in L1, one could think of compiling the OP_STARK as the function $f$ in the protocol above. Therefore, covenants with a bounded depth sufficient to express OP_STARK imply the ability to express arbitrary functions within contracts using the challenge protocol.
+Instead of an OP_STARK operator in L1, one could think of compiling the OP_STARK as the function *f* in the protocol above.
 
-One advantage of this approach is that no new cryptographic assumptions are added to bitcoin's layer 1 even if OP_START does require it; moreover, if different or better OP_STARK2 is discovered, the innovation can reach layer 2 contracts without any change needed in layer 1.
+Note that covenants with a bounded depth are sufficient to express OP_STARK imply the ability to express arbitrary functions within contracts using the challenge protocol.
+
+One advantage of this approach is that no new cryptographic assumptions are added to bitcoin's layer 1 even if OP_STARK does require it; moreover, if different or better OP_STARK2 is discovered, the innovation can reach layer 2 contracts without any change needed in layer 1.
 
 ## Optimistic rollups
 
