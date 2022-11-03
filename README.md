@@ -1,4 +1,4 @@
-# MATT − General smart contracts in bitcoin via covenants
+# General smart contracts in bitcoin via covenants
 **Salvatore Ingala**
 
 Covenants are UTXOs that are encumbered with restrictions on the *outputs* of the transaction spending the UTXO. More formally, we can define a *covenant* any UTXO such that at least one of its spending conditions is valid only if one or more of the outputs' `scriptPubKey` satisfies certain restrictions.
@@ -42,7 +42,7 @@ In the following, we will assume without loss of generality that computations ha
 
 By constructing a Merkle tree that has the (hashes of) the elements of *S* in the leafs, we can produce a short commitment *h*<sub>*S*</sub> to the entire list *S* with the following properties (that hold for a verifier that only knows *h*<sub>*S*</sub>):
 - a (log&nbsp;*n*)-sized proof can prove the value of an element *s*<sub>*i*</sub>
-- a (log&nbsp;*n*&nbsp;+&nbsp;|*x*|)-sized proof can prove the new commitment *h*<sub>*S*'</sub>, where *S*' is a new list obtained by replacing the value of a certain leaf with *x*.
+- a (log&nbsp;*n*&nbsp;+&nbsp;&#124;*x*&#124;)-sized proof can prove the new commitment *h*<sub>*S*'</sub>, where *S*' is a new list obtained by replacing the value of a certain leaf with *x*.
 
 ![A Merkle tree](/assets/merkletree.png)
 
@@ -168,9 +168,9 @@ We can take advantage of the double-commitment structure of taproot outputs (tha
 
 The idea is to replace the internal pubkey *Q* with a key *Q'* obtained by tweaking *Q* with the covenant data (the same process that is used to commit to the root of the taptree). More precisely, if *d* is the data committed to the covenant, the covenant-data-augmented internal key *Q'* is defined as:
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*Q' = Q + int(hash<sub>TapCovenantData</sub>(Q ‖ h_data))G*
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*Q'&nbsp;=&nbsp;Q&nbsp;+&nbsp;int(hash<sub>TapCovenantData</sub>(Q&nbsp;&#124;&#124;&nbsp;h<sub>data</sub>))G*
 
-where *h_data* is the sha256-hash of covenant data. It is then easy to prove that the point is constructed in this way, by repeating the calculation.
+where *h<sub>data</sub>* is the sha256-hash of covenant data. It is then easy to prove that the point is constructed in this way, by repeating the calculation.
 
 If there is no useful key path spend, similarly to what is suggested in [BIP-341](https://github.com/bitcoin/bips/blob/master/bip-0341.mediawiki#constructing-and-spending-taproot-outputs) for the case of scripts with no key path spends, we can use the NUMS point *H = lift_x(0x0250929b74c1a04954b78b4b6035e97a5e078a5a0f28ec96d547bfee9ace803ac0)*.
 
@@ -179,8 +179,8 @@ TODO: double check if the math above is sound
 ## Changes to Script
 
 The following might be some minimal new opcodes to add for taproot transactions in order to enable the construction above. This is a very preliminary proposal.
-- `OP_SHA256CAT`: returns the SHA256 hash of the concatenation of the second and the first (top) element of the stack. (redundant if OP_CAT is enabled, even just on operands with total length up to 64 bytes)
-- `OP_CHECKINPUTCOVENANTVERIFY`: let *x*, *d* be the two top elements of the stack; behave like OP_SUCCESS if any of *x* and *d* is not exactly 32 bytes; otherwise, check that the *x* is a valid x-only pubkey, and the internal pubkey *P* is indeed obtained by tweaking *lift_x(x)* with *d*.
+- `OP_SHA256CAT`: returns the SHA256 hash of the concatenation of the second and the first (top) element of the stack. (redundant if `OP_CAT` is enabled, even just on operands with total length up to 64 bytes)
+- `OP_CHECKINPUTCOVENANTVERIFY`: let *x*, *d* be the two top elements of the stack; behave like `OP_SUCCESS` if any of *x* and *d* is not exactly 32 bytes; otherwise, check that the *x* is a valid x-only pubkey, and the internal pubkey *P* is indeed obtained by tweaking *lift_x(x)* with *d*.
 - `OP_INSPECTNUMINPUTS`, `OP_INSPECTNUMOUTPUTS`, `OP_INSPECTINPUTVALUE` and `OP_INSPECTOUTPUTVALUE` - opcodes to push number on the stack of inputs/outputs and their amounts.
 - `OP_CHECKOUTPUTCOVENANTVERIFY`: given a number *out_i* and three 32-byte hash elements *x*, *d* and *taptree* on top of the stack, verifies that the *out_i*-th output is a P2TR output with internal key computed as above, and tweaked with *taptree*. This is the actual covenant opcode.
 
