@@ -233,15 +233,15 @@ Multiparty state channels are possible as well; therefore, constructions like [C
 
 Protocols based on ZK-proofs require the blockchain to be the *verifier*; the verifier is a function that takes a zero-knowledge proof and returns true/false based on its correctness.
 
-Instead of an OP_STARK operator in L1, one could think of compiling the OP_STARK as the function *f* in the protocol above.
+Instead of an `OP_STARK` operator in L1, one could think of compiling the `OP_STARK` as the function *f* in the protocol above.
 
-Note that covenants with a bounded depth are sufficient to express OP_STARK imply the ability to express arbitrary functions within contracts using the challenge protocol.
+Note that covenants with a bounded "recursion depth" are sufficient to express `OP_STARK`, which in turns imply the ability to express arbitrary functions within contracts using the challenge protocol.
 
 One advantage of this approach is that no new cryptographic assumptions are added to bitcoin's layer 1 even if OP_STARK does require it; moreover, if different or better OP_STARK2 is discovered, the innovation can reach layer 2 contracts without any change needed in layer 1.
 
 ## Optimistic rollups
 
-John Light recently posted a research report on Validity Rollups could be added to bitcoin's layer 1: https://bitcoinrollups.org. The suggested changes required might include a combination of recursive covenants, and specific opcodes for validity proof verification. 
+John Light recently posted a [research report](https://bitcoinrollups.org) on how Validity Rollups could be added to bitcoin's layer 1. While no exact proposal is pushed forward, the suggested changes required might include a combination of recursive covenants, and specific opcodes for validity proof verification.
 
 Fraud proofs are the core for optimistic rollups; exploring the possibility of implementing optimistic rollups with MATT covenants seems a promising direction. Because of the simplicity of the required changes to Script, this might answer some of the [cost and risks](https://bitcoinrollups.org/#section-6-the-costs-and-risks-of-validity-rollups) analyzed in the report, while providing many of the same benefits. Notably, no novel cryptography needs to become part of bitcoin's layer 1.
 
