@@ -44,26 +44,7 @@ By constructing a Merkle tree that has the (hashes of) the elements of $S$ in th
 - a $\sim(\log n$)-sized proof can prove the value of an element $s_i$
 - a $\sim(\log n + |x|)$-sized proof can prove the new commitment $h_{S'}$, where $S'$ is a new list obtained by replacing the value of a certain leaf with $x$.
 
-```graphviz
-digraph {
-  node [shape=box]
-  H₁₈->{H₁₄ H₅₈}
-    H₁₄->{H₁₂ H₃₄}
-      H₁₂->{H₁ H₂}
-        H₁->{s₁[color=blue]}
-        H₂->{s₂[color=blue]}
-      H₃₄->{H₃ H₄}
-        H₃->{s₃[color=blue]}
-        H₄->{s₄[color=blue]}
-    H₅₈->{H₅₆ H₇₈}
-      H₅₆->{H₅ H₆}
-        H₅->{s₅[color=blue]}
-        H₆->{s₆[color=blue]}
-      H₇₈->{H₇ H₈}
-        H₇->{s₇[color=blue]}
-        H₈->{s₈[color=blue]}
-}
-```
+![A Merkle tree](/assets/merkletree.png)
 
 This allows to compactly commit to a RAM, and to prove correctness of RAM updates.
 
