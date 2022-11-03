@@ -168,7 +168,7 @@ We can take advantage of the double-commitment structure of taproot outputs (tha
 
 The idea is to replace the internal pubkey *Q* with a key *Q'* obtained by tweaking *Q* with the covenant data (the same process that is used to commit to the root of the taptree). More precisely, if *d* is the data committed to the covenant, the covenant-data-augmented internal key *Q'* is defined as:
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*Q' = Q + int(hash<sub>TapCovenantData</sub>(Q || h_data))G*
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*Q' = Q + int(hash<sub>TapCovenantData</sub>(Q ‖ h_data))G*
 
 where *h_data* is the sha256-hash of covenant data. It is then easy to prove that the point is constructed in this way, by repeating the calculation.
 
