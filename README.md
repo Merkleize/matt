@@ -91,13 +91,15 @@ In the following section, we will argue that a simple covenant construction suff
 
 In this section, we explore how a smart contract that requires any non-trivial computation *f*&nbsp;:&nbsp;*X*&nbsp;↦&nbsp;*Y* (that is too expensive or not feasible with on-chain Script state transitions) can be implemented with the simple covenants described in the previous section.
 
+The ideas in this section appeared in literatures; the reader is referred to the references for a more comprehensive discussion.
+
 We want to be able to build contracts that allow conditions of the type *f*(*x*)&nbsp;=&nbsp;*y*; yet, we do not want the layer 1 to be forced to do expensive computation.
 
 In the following, we assume for simplicity that Alice and Bob are the only participants of the covenant, and they both locked some funds *bond*<sub>A</sub> and *bond*<sub>A</sub> (respectively) inside the covenant's UTXO.
 
-1) Alice posts the statement "*f*(*x*)&nbsp;=&nbsp;*y*".
-2) After a *challenge period*, if no challenge happened, Alice is free to continue and unlock the funds; the statement is true.
-3) At any time before the *challenge period* expires, Bob can post a challenge: "actually, *f*(*x*)&nbsp;=&nbsp;*z*".
+1. Alice posts the statement "*f*(*x*)&nbsp;=&nbsp;*y*".
+2. After a *challenge period*, if no challenge occurs, Alice is free to continue and unlock the funds; the statement is true.
+3. At any time before the *challenge period* expires, Bob can start a challenge: "actually, *f*(*x*)&nbsp;=&nbsp;*z*".
 
 In case of a challenge, Alice and Bob enter a challenge resolution protocol, arbitrated by layer 1; the winner takes the other party's bond (details and the exact game theory vary based on the type of protocol the challenge is part of; choosing the right amount of bonds is crucial for protocol design).
 
@@ -193,7 +195,7 @@ Other things could be considered:
 
 *Remark:* the [additional introspection opcodes available in Blockstream Liquid](https://github.com/ElementsProject/elements/blob/master/doc/tapscript_opcodes.md) do indeed seem to allow MATT covenants; in fact, the opcodes `OP_CHECKINPUTCOVENANTVERIFY` and `OP_CHECKOUTPUTCOVENANTVERIFY` could be replaced by more general opcodes like the group \{`OP_TWEAKVERIFY`, `OP_INSPECTINPUTSCRIPTPUBKEY`, `OP_PUSHCURRENTINPUTINDEX`, `OP_INSPECTOUTPUTSCRIPTPUBKEY` \}.
 
-### Variant: bounded recursiveness
+### Variant: bounded recursivity
 
 In the form described above, the covenant essentially allows fully recursive constructions (an arbitrary *depth* of the covenant execution tree is in practice equivalent to full recursion).
 
@@ -205,9 +207,9 @@ The full exploration of the design space is left for future research.
 
 # Applications
 
-This section explores some of the potential use cases of the techniques presented above.
+This section explores some of the potential use cases of the techniques presented above. The list is not exhaustive.
 
-A lot of research and experimentation is still needed to understand the practicality of the constructions, and the best possible opcodes to implement MATT covenants.
+Given the generality of fraud proofs, some variant of every kind of smart contracts or layer two construction should be possible with MATT covenants, although the additional requirements (for example the capital lockup and the challenge period delays) needs to be accurately considered; further research is necessary to assess for what applications the tradeoffs are acceptable.
 
 ## State channels
 A *state channel* is a generalization of a payment channel where, additionally to the balance at the end of each channel, some additional *state* is stored.
