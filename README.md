@@ -10,7 +10,7 @@ In this note, we want to explore the possibilities unleashed by the addition of 
 - pre-commitment to every possible future script (but not their data);
 - few simple opcodes operating with the covenant data.
 
-We argue that such a simple covenant construction is enough to extend the power of Bitcoin's layer 1 to become a **universal settlement layer** for arbitrary computation.
+We argue that such a simple covenant construction is enough to extend the power of bitcoin's layer 1 to become a **universal settlement layer** for arbitrary computation.
 
 Moreover, the covenant can elegantly fit within P2TR transactions, without any substantial increase for the workload of bitcoin nodes.
 
@@ -22,7 +22,7 @@ We can think of a smart contract as a "program" that updates a certain *state* a
 
 The exact definition will be highly dependent on the properties of the underlying blockchain.
 
-In bitcoin, the only *state* that all the nodes reach consensus about is the *UTXO set*; other blockchains might have other data structures as part of the consensus, like a key-value store that can be updated when executing transactions.
+In bitcoin, the only *state* upon which all the nodes reach consensus is the *UTXO set*; other blockchains might have other data structures as part of the consensus, like a key-value store that can be updated as a side effect of transaction execution.
 
 In this section we explore the following concepts in order to set the framework for a definition of smart contracts that fits the structure of bitcoin:
 - the contract's state: the "memory" the smart contract operate on;
@@ -34,13 +34,13 @@ In the following, an on-chain smart contract is always represented as a single U
 ## State
 Any interesting "state" of a smart contract can ultimately be encoded as a list, where the elements of the list can either be bits, fixed-size integers, or arbitrary byte-strings.
 
-Whichever the choice, it does not really affect the kinds of computations that are expressible with either representation, as long as one is able to perform a reasonable set of basic computations on those elements.
+Whichever the choice, it does not really affect what kinds of computations are expressible, as long as one is able to perform some basic computations on those elements.
 
 In the following, we will assume without loss of generality that computations happen on a state which is a list of fixed length *S*&nbsp;=&nbsp;[*s*<sub>1</sub>,&nbsp;*s*<sub>2</sub>,&nbsp;...,&nbsp;*s*<sub>*n*</sub>], where each *s*<sub>i</sub> is a byte string.
 
 ### Merkleized state
 
-By constructing a Merkle tree that has the (hashes of) the elements of *S* in the leafs, we can produce a short commitment *h*<sub>*S*</sub> to the entire list *S* with the following properties (that hold for a verifier that only knows *h*<sub>*S*</sub>):
+By constructing a [Merkle tree](https://en.wikipedia.org/wiki/Merkle_tree) that has the (hashes of) the elements of *S* in the leafs, we can produce a short commitment *h*<sub>*S*</sub> to the entire list *S* with the following properties (that hold for a verifier that only knows *h*<sub>*S*</sub>):
 - a (log&nbsp;*n*)-sized proof can prove the value of an element *s*<sub>*i*</sub>
 - a (log&nbsp;*n*&nbsp;+&nbsp;&#124;*x*&#124;)-sized proof can prove the new commitment *h*<sub>*S*'</sub>, where *S*' is a new list obtained by replacing the value of a certain leaf with *x*.
 
@@ -186,8 +186,7 @@ The following might be some minimal new opcodes to add for taproot transactions 
 - `OP_INSPECTNUMINPUTS`, `OP_INSPECTNUMOUTPUTS`, `OP_INSPECTINPUTVALUE` and `OP_INSPECTOUTPUTVALUE` - opcodes to push number on the stack of inputs/outputs and their amounts.
 - `OP_CHECKOUTPUTCOVENANTVERIFY`: given a number *out_i* and three 32-byte hash elements *x*, *d* and *taptree* on top of the stack, verifies that the *out_i*-th output is a P2TR output with internal key computed as above, and tweaked with *taptree*. This is the actual covenant opcode.
 
-
-Other things could be considered:
+Other observations:
 - `OP_CHECKINPUTCOVENANTVERIFY` and `OP_CHECKOUTPUTCOVENANTVERIFY` could have a mode where *x* is replaced with a NUMS pubkey, for example if the first operand is an empty array of bytes instead of a 32 byte pubkey; this saves about 31 bytes when no internal pubkey is needed (so about 62 bytes for a typical contract transition using both opcodes)
 - Is it worth adding other introspection opcodes, for example `OP_INSPECTVERSION`, `OP_INSPECTLOCKTIME`? See [Liquid](https://github.com/ElementsProject/elements/blob/master/doc/tapscript_opcodes.md).
 - Is there any malleability issue? Can covenants "run" without signatures, or is a signature always to be expected when using spending conditions with the covenant encumbrance? That might be useful in contracts where no signature is required to proceed with the protocol (for example, any party could feed valid data to the bisection protocol above).
