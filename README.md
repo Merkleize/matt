@@ -180,11 +180,14 @@ TODO: double check if the math above is sound
 
 ## Changes to Script
 
-The following might be some minimal new opcodes to add for taproot transactions in order to enable the construction above. This is a very preliminary proposal.
+The following might be some minimal new opcodes to add for taproot transactions in order to enable the construction above. This is a very preliminary proposal, and not yet complete.
 - `OP_SHA256CAT`: returns the SHA256 hash of the concatenation of the second and the first (top) element of the stack. (redundant if `OP_CAT` is enabled, even just on operands with total length up to 64 bytes)
 - `OP_CHECKINPUTCOVENANTVERIFY`: let *x*, *d* be the two top elements of the stack; behave like `OP_SUCCESS` if any of *x* and *d* is not exactly 32 bytes; otherwise, check that the *x* is a valid x-only pubkey, and the internal pubkey *P* is indeed obtained by tweaking *lift_x(x)* with *d*.
 - `OP_INSPECTNUMINPUTS`, `OP_INSPECTNUMOUTPUTS`, `OP_INSPECTINPUTVALUE` and `OP_INSPECTOUTPUTVALUE` - opcodes to push number on the stack of inputs/outputs and their amounts.
 - `OP_CHECKOUTPUTCOVENANTVERIFY`: given a number *out_i* and three 32-byte hash elements *x*, *d* and *taptree* on top of the stack, verifies that the *out_i*-th output is a P2TR output with internal key computed as above, and tweaked with *taptree*. This is the actual covenant opcode.
+
+TODO:
+- Many contracts need parties to provide additional data; simply passing it via the witness faces the problem that it could be malleated. Therefore, a way of passing signed data is necessary. One way to address this problem could be to add a commitment to the data in the annex, and add an opcode to verify such commitment. Since the annex is covered by the signature, this removes any malleability. Another option is an `OP_CHECKSIGFROMSTACK` opcode, but that would cost an additional signature check.
 
 Other observations:
 - `OP_CHECKINPUTCOVENANTVERIFY` and `OP_CHECKOUTPUTCOVENANTVERIFY` could have a mode where *x* is replaced with a NUMS pubkey, for example if the first operand is an empty array of bytes instead of a 32 byte pubkey; this saves about 31 bytes when no internal pubkey is needed (so about 62 bytes for a typical contract transition using both opcodes)
