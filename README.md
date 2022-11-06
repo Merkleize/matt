@@ -26,13 +26,13 @@ In bitcoin, the only *state* upon which all the nodes reach consensus is the *UT
 
 In this section we explore the following concepts in order to set the framework for a definition of smart contracts that fits the structure of bitcoin:
 - the contract's state: the "memory" the smart contract operate on;
-- state transitions: the rules to update the contract's state
+- state transitions: the rules to update the contract's state;
 - covenants: the technical mean that can allow contracts to function in the context of a bitcoin UTXO.
 
-In the following, an on-chain smart contract is always represented as a single UTXO that implicitly embeds the contract's state and possibly controls some coins that are "locked" in it. More generally, one could think of smart contracts that are represented in a *set* of multiple UTXOs; we leave the explortion of generalizations of the framework to future work.
+In the following, an on-chain smart contract is always represented as a single UTXO that implicitly embeds the contract's state and possibly controls some coins that are "locked" in it. More generally, one could think of smart contracts that are represented in a *set* of multiple UTXOs; we leave the explortion of generalizations of the framework to future research.
 
 ## State
-Any interesting "state" of a smart contract can ultimately be encoded as a list, where the elements of the list can either be bits, fixed-size integers, or arbitrary byte-strings.
+Any interesting "state" of a smart contract can ultimately be encoded as a list, where each element is either a bit, a fixed-size integers, or an arbitrary byte-strings.
 
 Whichever the choice, it does not really affect what kinds of computations are expressible, as long as one is able to perform some basic computations on those elements.
 
@@ -40,8 +40,8 @@ In the following, we will assume without loss of generality that computations ha
 
 ### Merkleized state
 
-By constructing a [Merkle tree](https://en.wikipedia.org/wiki/Merkle_tree) that has the (hashes of) the elements of *S* in the leafs, we can produce a short commitment *h*<sub>*S*</sub> to the entire list *S* with the following properties (that hold for a verifier that only knows *h*<sub>*S*</sub>):
-- a (log&nbsp;*n*)-sized proof can prove the value of an element *s*<sub>*i*</sub>
+By constructing a [Merkle tree](https://en.wikipedia.org/wiki/Merkle_tree) that has the (hashes of) the elements of *S* in the leaves, we can produce a short commitment *h*<sub>*S*</sub> to the entire list *S* with the following properties (that hold for a verifier that only knows *h*<sub>*S*</sub>):
+- a (log&nbsp;*n*)-sized proof can prove the value of an element *s*<sub>*i*</sub>;
 - a (log&nbsp;*n*&nbsp;+&nbsp;&#124;*x*&#124;)-sized proof can prove the new commitment *h*<sub>*S*'</sub>, where *S*' is a new list obtained by replacing the value of a certain leaf with *x*.
 
 ![A Merkle tree](/assets/merkletree.png)
@@ -83,6 +83,8 @@ If naively designed, the execution of a contract might require a large number of
 
 While the covenant approach does indeed enable a chain of transactions to perform arbitrary computation, simple economic considerations will push protocol designers to perform any non-trivial computation off-chain, and instead use the blockchain consensus only to *verify* the computation; or, if possible, skip the verification altogether.
 
+The fundamental fact that a blockchain's layer 1 never *actually* needs to run complex programs in order to enable arbitrary complex smart contracting was observed in the past, for example in this [2016 post by Greg Maxwell](https://bitcointalk.org/index.php?topic=1427885.msg14601127#msg14601127).
+
 Vitalik Buterin popularized the term of *[functionality escape velocity](https://vitalik.ca/general/2019/12/26/mvb.html)* to signify the minimum amount of functionality required on layer 1 in order to enable anything else to be built on top (that is, on layer 2 and beyond).
 
 In the following section, we will argue that a simple covenant construction suffices to achieve the functionality escape velocity in the UTXO model.
@@ -91,7 +93,7 @@ In the following section, we will argue that a simple covenant construction suff
 
 In this section, we explore how a smart contract that requires any non-trivial computation *f*&nbsp;:&nbsp;*X*&nbsp;↦&nbsp;*Y* (that is too expensive or not feasible with on-chain Script state transitions) can be implemented with the simple covenants described in the previous section.
 
-The ideas in this section appeared in literatures; the reader is referred to the references for a more comprehensive discussion.
+The ideas in this section appeared in literature; the reader is referred to the references for a more comprehensive discussion.
 
 We want to be able to build contracts that allow conditions of the type *f*(*x*)&nbsp;=&nbsp;*y*; yet, we do not want the layer 1 to be forced to do expensive computation.
 
@@ -116,7 +118,7 @@ Given the function *f*, it is possible to decompose the entire computation in si
 In the following, we assume each elementary operation is operating on a RAM, encoded in the state via Merkle trees as sketched above.
 Therefore, one can represent all the steps of the computation as triples *tr*<sub>*i*</sub>&nbsp;=&nbsp;(*st*<sub>*i*</sub>,&nbsp;*op*<sub>*i*</sub>,&nbsp;*st*<sub>*i*&nbsp;+&nbsp;1</sub>), where *st*<sub>*i*</sub> is the state (e.g. a canonical Merkle tree of the RAM) before the *i*-th operation, *st*<sub>*i*&nbsp;+&nbsp;1</sub> is the state after, and *op*<sub>*i*</sub> is the description of the operation (implementation-specific; it could be something like "add *a* to *b* and save the result in *c*).
 
-Finally, a Merkle tree *M*<sub>*T*</sub> is constructed that has as leafs the values of the individual computation steps *T*&nbsp;=&nbsp;{*tr*<sub>0</sub>,&nbsp;*tr*<sub>1</sub>,&nbsp;...,&nbsp;*tr*<sub>*N*&nbsp;-&nbsp;1</sub>} if the computation requires *N* steps, producing the Merkle root *h*<sub>*T*</sub>. The height of the Merkle tree is ⌈log&nbsp;*N*⌉. Observe that each internal node commits to the portion of the computation trace corresponding to its own subtree.
+Finally, a Merkle tree *M*<sub>*T*</sub> is constructed that has as leaves the values of the individual computation steps *T*&nbsp;=&nbsp;{*tr*<sub>0</sub>,&nbsp;*tr*<sub>1</sub>,&nbsp;...,&nbsp;*tr*<sub>*N*&nbsp;-&nbsp;1</sub>} if the computation requires *N* steps, producing the Merkle root *h*<sub>*T*</sub>. The height of the Merkle tree is ⌈log&nbsp;*N*⌉. Observe that each internal node commits to the portion of the computation trace corresponding to its own subtree.
 
 Let's assume that the Merkle tree commitments for internal nodes are further augmented with the state *st*<sub>*start*</sub>, *st*<sub>*end*</sub>, respectively the state before the operation of in the leftmost leaf of the subtree, and after the rightmost leaf of the subtree.
 
