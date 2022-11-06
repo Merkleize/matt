@@ -10,7 +10,7 @@ In this note, we want to explore the possibilities unleashed by the addition of 
 - pre-commitment to every possible future script (but not their data);
 - few simple opcodes operating with the covenant data.
 
-We argue that such a simple covenant construction is enough to extend the power of bitcoin's layer 1 to become a **universal settlement layer** for arbitrary computation.
+We argue that such a simple covenant construction is enough to extend the power of bitcoin's layer&nbsp;1 to become a **universal settlement layer** for arbitrary computation.
 
 Moreover, the covenant can elegantly fit within P2TR transactions, without any substantial increase for the workload of bitcoin nodes.
 
@@ -25,14 +25,14 @@ The exact definition will be highly dependent on the properties of the underlyin
 In bitcoin, the only *state* upon which all the nodes reach consensus is the *UTXO set*; other blockchains might have other data structures as part of the consensus, like a key-value store that can be updated as a side effect of transaction execution.
 
 In this section we explore the following concepts in order to set the framework for a definition of smart contracts that fits the structure of bitcoin:
-- the contract's state: the "memory" the smart contract operate on;
+- the contract's state: the "memory" the smart contract operates on;
 - state transitions: the rules to update the contract's state;
-- covenants: the technical mean that can allow contracts to function in the context of a bitcoin UTXO.
+- covenants: the technical means that can allow contracts to function in the context of a bitcoin UTXO.
 
-In the following, an on-chain smart contract is always represented as a single UTXO that implicitly embeds the contract's state and possibly controls some coins that are "locked" in it. More generally, one could think of smart contracts that are represented in a *set* of multiple UTXOs; we leave the explortion of generalizations of the framework to future research.
+In the following, an on-chain smart contract is always represented as a single UTXO that implicitly embeds the contract's state and possibly controls some coins that are "locked" in it. More generally, one could think of smart contracts that are represented in a *set* of multiple UTXOs; we leave the exploration of generalizations of the framework to future research.
 
 ## State
-Any interesting "state" of a smart contract can ultimately be encoded as a list, where each element is either a bit, a fixed-size integers, or an arbitrary byte-strings.
+Any interesting "state" of a smart contract can ultimately be encoded as a list, where each element is either a bit, a fixed-size integers, or an arbitrary byte string.
 
 Whichever the choice, it does not really affect what kinds of computations are expressible, as long as one is able to perform some basic computations on those elements.
 
@@ -48,7 +48,7 @@ By constructing a [Merkle tree](https://en.wikipedia.org/wiki/Merkle_tree) that 
 
 This allows to compactly commit to a RAM, and to prove correctness of RAM updates.
 
-In other words, a stateful smart contract can represent arbitrary state in just a single hash, for example a 32-byte SHA256 output.
+In other words, a stateful smart contract can represent an arbitrary state in just a single hash, for example a 32-byte SHA256 output.
 
 ## State transitions and UTXOs
 
@@ -83,9 +83,9 @@ If naively designed, the execution of a contract might require a large number of
 
 While the covenant approach does indeed enable a chain of transactions to perform arbitrary computation, simple economic considerations will push protocol designers to perform any non-trivial computation off-chain, and instead use the blockchain consensus only to *verify* the computation; or, if possible, skip the verification altogether.
 
-The fundamental fact that a blockchain's layer 1 never *actually* needs to run complex programs in order to enable arbitrary complex smart contracting was observed in the past, for example in this [2016 post by Greg Maxwell](https://bitcointalk.org/index.php?topic=1427885.msg14601127#msg14601127).
+The fundamental fact that a blockchain's layer&nbsp;1 never *actually* needs to run complex programs in order to enable arbitrary complex smart contracting was observed in the past, for example in this [2016 post by Greg Maxwell](https://bitcointalk.org/index.php?topic=1427885.msg14601127#msg14601127).
 
-Vitalik Buterin popularized the term of *[functionality escape velocity](https://vitalik.ca/general/2019/12/26/mvb.html)* to signify the minimum amount of functionality required on layer 1 in order to enable anything else to be built on top (that is, on layer 2 and beyond).
+Vitalik Buterin popularized the concept of *[functionality escape velocity](https://vitalik.ca/general/2019/12/26/mvb.html)* to signify the minimum amount of functionality required on layer&nbsp;1 in order to enable anything else to be built on top (that is, on layer&nbsp;2 and beyond).
 
 In the following section, we will argue that a simple covenant construction suffices to achieve the functionality escape velocity in the UTXO model.
 
@@ -95,15 +95,15 @@ In this section, we explore how a smart contract that requires any non-trivial c
 
 The ideas in this section appeared in literature; the reader is referred to the references for a more comprehensive discussion.
 
-We want to be able to build contracts that allow conditions of the type *f*(*x*)&nbsp;=&nbsp;*y*; yet, we do not want the layer 1 to be forced to do expensive computation.
+We want to be able to build contracts that allow conditions of the type *f*(*x*)&nbsp;=&nbsp;*y*; yet, we do not want layer&nbsp;1 to be forced to perform any expensive computation.
 
-In the following, we assume for simplicity that Alice and Bob are the only participants of the covenant, and they both locked some funds *bond*<sub>A</sub> and *bond*<sub>A</sub> (respectively) inside the covenant's UTXO.
+In the following, we assume for simplicity that Alice and Bob are the only participants of the covenant, and they both locked some funds *bond*<sub>A</sub> and *bond*<sub>B</sub> (respectively) inside the covenant's UTXO.
 
 1. Alice posts the statement "*f*(*x*)&nbsp;=&nbsp;*y*".
 2. After a *challenge period*, if no challenge occurs, Alice is free to continue and unlock the funds; the statement is true.
 3. At any time before the *challenge period* expires, Bob can start a challenge: "actually, *f*(*x*)&nbsp;=&nbsp;*z*".
 
-In case of a challenge, Alice and Bob enter a challenge resolution protocol, arbitrated by layer 1; the winner takes the other party's bond (details and the exact game theory vary based on the type of protocol the challenge is part of; choosing the right amount of bonds is crucial for protocol design).
+In case of a challenge, Alice and Bob enter a challenge resolution protocol, arbitrated by layer&nbsp;1; the winner takes the other party's bond (details and the exact game theory vary based on the type of protocol the challenge is part of; choosing the right amount of bonds is crucial for protocol design).
 
 The remainder of this section sketches an instantiation of the challenge protocol.
 
@@ -113,7 +113,7 @@ In this section, we sketch the challenge protocol for an arbitrary computation *
 
 ### Computation trace
 
-Given the function *f*, it is possible to decompose the entire computation in simple elementary steps the perform atomic operation. For example, if the domain of *x* and *y* is that of binary strings of a fixed length, it is possible to create a boolean circuit that takes *x* and produces *y*; in practice, some form of assembly-like language operating on a RAM might be more efficient and fitting for bitcoin Script.
+Given the function *f*, it is possible to decompose the entire computation in simple elementary steps, each performing a simple, atomic operation. For example, if the domain of *x* and *y* is that of binary strings of a fixed length, it is possible to create a boolean circuit that takes *x* and produces *y*; in practice, some form of assembly-like language operating on a RAM might be more efficient and fitting for bitcoin Script.
 
 In the following, we assume each elementary operation is operating on a RAM, encoded in the state via Merkle trees as sketched above.
 Therefore, one can represent all the steps of the computation as triples *tr*<sub>*i*</sub>&nbsp;=&nbsp;(*st*<sub>*i*</sub>,&nbsp;*op*<sub>*i*</sub>,&nbsp;*st*<sub>*i*&nbsp;+&nbsp;1</sub>), where *st*<sub>*i*</sub> is the state (e.g. a canonical Merkle tree of the RAM) before the *i*-th operation, *st*<sub>*i*&nbsp;+&nbsp;1</sub> is the state after, and *op*<sub>*i*</sub> is the description of the operation (implementation-specific; it could be something like "add *a* to *b* and save the result in *c*).
@@ -126,9 +126,9 @@ Let's assume that the Merkle tree commitments for internal nodes are further aug
 
 The challenge protocol begins with Alice posting what she claims is the computation trace *h*<sub>*A*</sub>, while Bob disagrees with the trace *h*<sub>*B*</sub>&nbsp;≠&nbsp;*h*<sub>*A*</sub>; therefore, the challenge starts at the root of *M*<sub>*T*</sub>, and proceeds in steps in order to find a leaf where Alice and Bob disagree (which is guaranteed to exist, hence the disagreement). Note that the arbitration mechanism knows *f*, *x* and *y*, but not the correct computation trace hash *h*<sub>*T*</sub>.
 
-**(Bisection phase)**: While the challenge is at a non-leaf node of *M*<sub>*T*</sub>, Alice and Bob take turns to post the two hashes correspoding to left and right child of their claimed computation trace hash; moreover, they post the start/end state for each child node. The protocol enforces that Alice's transaction is only valid if the posted hashes *h*<sup>*l*</sup><sub>*A*</sub> and *h*<sup>*r*</sup><sub>*A*</sub>, and the declared start/end state for each child is consistent with the commitment of the current node.
+**(Bisection phase)**: While the challenge is at a non-leaf node of *M*<sub>*T*</sub>, Alice and Bob take turns to post the two hashes corresponding to the left and right child of their claimed computation trace hash; moreover, they post the start/end state for each child node. The protocol enforces that Alice's transaction is only valid if the posted hashes *h*<sup>*l*</sup><sub>*A*</sub> and *h*<sup>*r*</sup><sub>*A*</sub>, and the declared start/end state for each child are consistent with the commitment in the current node.
 
-**(Arbitration phase):** If the protocol reached a leaf node, then each party reveals (*st*<sub>*i*</sub>,&nbsp;*op*<sub>*i*</sub>,&nbsp;*st*<sub>*i*&nbsp;+&nbsp;1</sub>); in fact, only the honest party will be able to reveal correct values, therefore the protocol can adjudicate the winner.
+**(Arbitration phase):** If the protocol has reached the *i*-th leaf node, then each party reveals (*st*<sub>*i*</sub>,&nbsp;*op*<sub>*i*</sub>,&nbsp;*st*<sub>*i*&nbsp;+&nbsp;1</sub>); in fact, only the honest party will be able to reveal correct values, therefore the protocol can adjudicate the winner.
 
 *Remark*: there is definitely a lot of room for optimizations; it is left for future work to find the optimal variation of the approach; moreover, different challenge mechanisms could be more appropriate for different functions *f*.
 
@@ -136,15 +136,15 @@ The challenge protocol begins with Alice posting what she claims is the computat
 
 With the right economic incentives, protocol designers can guarantee that playing a losing game always loses money compared to cooperating. Therefore, **the challenge game is never expected to be played on-chain**. The size of the bonds need to be appropriate to disincentivize griefing attacks.
 
-### Implementating the protocol state transitions
+### Implementing the bisection protocol's state transitions
 
 It is not difficult to see that the entire challenge-response protocol above can be implemented using the simple state transitions described above.
 
 Before a challenge begins, the state of the covenant contains the value of *x*, *y* and the computation trace computed by Alice. When starting the challenge, Bob also adds its claim for the correct computation trace, and the covenant enters the bisection phase.
 
-During the bisaction phase, the covenant contains the claimed computation trace for that node of the computation protocol, according to each party. In turns, each party has to reveal the corresponding computation trace for both the children of the current node; the transation is only valid if the hash of the current node can be computed correctly from the information provided by each party about the child nodes. The protocol repeats on one of the two child nodes on whose computation trace the two parties disagree (which is guaranteed to exist). If a leaf of *M*<sub>*T*</sub> is reached, the covenant enters the final arbitration phase.
+During the bisaction phase, the covenant contains the claimed computation trace for that node of the computation protocol, according to each party. In turns, each party has to reveal the corresponding computation trace for both the children of the current node; the transaction is only valid if the hash of the current node can be computed correctly from the information provided by each party about the child nodes. The protocol repeats on one of the two child nodes on whose computation trace the two parties disagree (which is guaranteed to exist). If a leaf of *M*<sub>*T*</sub> is reached, the covenant enters the final arbitration phase.
 
-During the arbitration phase (say at the *i*-th leaf node of *M*<sub>*T*</sub>), any party can win the challenge by providing correct values for the *tr*<sub>*i*</sub>&nbsp;=&nbsp;(*st*<sub>*i*</sub>,&nbsp;*op*<sub>*i*</sub>,&nbsp;*st*<sub>*i*&nbsp;+&nbsp;1</sub>). Crucially, only one party is able to provide correct values, and Script can verify that indeed the state moves from *st*<sub>*i*</sub> to *st*<sub>*i*&nbsp;+&nbsp;1</sub> by executing *op*<sub>*i*</sub>. The challenge is over.
+During the arbitration phase (say at the *i*-th leaf node of *M*<sub>*T*</sub>), any party can win the challenge by providing correct values for *tr*<sub>*i*</sub>&nbsp;=&nbsp;(*st*<sub>*i*</sub>,&nbsp;*op*<sub>*i*</sub>,&nbsp;*st*<sub>*i*&nbsp;+&nbsp;1</sub>). Crucially, only one party is able to provide correct values, and Script can verify that indeed the state moves from *st*<sub>*i*</sub> to *st*<sub>*i*&nbsp;+&nbsp;1</sub> by executing *op*<sub>*i*</sub>. The challenge is over.
 
 At any time, the covenant allows one player to automatically win the challenge after a certain timeout if the other party (who is expected to "make his move") does not spend the covenant. This guarantees that the protocol can always find a resolution.
 
@@ -162,7 +162,7 @@ We argued that the key to arbitrary, fully general smart contracts in the UTXO m
 
 (1) and (2) alone allow contracts with arbitrary computations; (3) makes them scale.
 
-*Merleize All The Things!*
+*Merkleize All The Things!*
 
 In this section we sketch a design of covenant opcodes that are taproot-friendly and could easily be added in a soft fork to the existing SegWitv1 Script.
 
@@ -174,7 +174,7 @@ The idea is to replace the internal pubkey *Q* with a key *Q'* obtained by tweak
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*Q'&nbsp;=&nbsp;Q&nbsp;+&nbsp;int(hash<sub>TapCovenantData</sub>(Q&nbsp;&#124;&#124;&nbsp;h<sub>data</sub>))G*
 
-where *h<sub>data</sub>* is the sha256-hash of covenant data. It is then easy to prove that the point is constructed in this way, by repeating the calculation.
+where *h<sub>data</sub>* is the sha256-hash of the covenant data. It is then easy to prove that the point is constructed in this way, by repeating the calculation.
 
 If there is no useful key path spend, similarly to what is suggested in [BIP-341](https://github.com/bitcoin/bips/blob/master/bip-0341.mediawiki#constructing-and-spending-taproot-outputs) for the case of scripts with no key path spends, we can use the NUMS point *H = lift_x(0x0250929b74c1a04954b78b4b6035e97a5e078a5a0f28ec96d547bfee9ace803ac0)*.
 
@@ -182,7 +182,7 @@ TODO: double check if the math above is sound
 
 ## Changes to Script
 
-The following might be some minimal new opcodes to add for taproot transactions in order to enable the construction above. This is a very preliminary proposal, and not yet complete.
+The following might be some minimal new opcodes to add for taproot transactions in order to enable the construction above. This is a very preliminary proposal, and not yet complete nor correct.
 - `OP_SHA256CAT`: returns the SHA256 hash of the concatenation of the second and the first (top) element of the stack. (redundant if `OP_CAT` is enabled, even just on operands with total length up to 64 bytes)
 - `OP_CHECKINPUTCOVENANTVERIFY`: let *x*, *d* be the two top elements of the stack; behave like `OP_SUCCESS` if any of *x* and *d* is not exactly 32 bytes; otherwise, check that the *x* is a valid x-only pubkey, and the internal pubkey *P* is indeed obtained by tweaking *lift_x(x)* with *d*.
 - `OP_INSPECTNUMINPUTS`, `OP_INSPECTNUMOUTPUTS`, `OP_INSPECTINPUTVALUE` and `OP_INSPECTOUTPUTVALUE` - opcodes to push number on the stack of inputs/outputs and their amounts.
@@ -190,6 +190,7 @@ The following might be some minimal new opcodes to add for taproot transactions 
 
 TODO:
 - Many contracts need parties to provide additional data; simply passing it via the witness faces the problem that it could be malleated. Therefore, a way of passing signed data is necessary. One way to address this problem could be to add a commitment to the data in the annex, and add an opcode to verify such commitment. Since the annex is covered by the signature, this removes any malleability. Another option is an `OP_CHECKSIGFROMSTACK` opcode, but that would cost an additional signature check.
+- Bitcoin numbers in current Script are not large enough for amounts.
 
 Other observations:
 - `OP_CHECKINPUTCOVENANTVERIFY` and `OP_CHECKOUTPUTCOVENANTVERIFY` could have a mode where *x* is replaced with a NUMS pubkey, for example if the first operand is an empty array of bytes instead of a 32 byte pubkey; this saves about 31 bytes when no internal pubkey is needed (so about 62 bytes for a typical contract transition using both opcodes)
@@ -227,9 +228,9 @@ The role of the blockchain is to guarantee that the game can be moved forward an
 
 In stateful blockchain, this is simply achieved by publishing the latest *state* (Merkleized or not) and then continuing the entire game on-chain. This is expensive, especially if the state transitions require some complex computation.
 
-An alternative that avoids moving computations on chain is the use of a challenge-response protocol, as sketched above.
+An alternative that avoids moving computations on-chain is the use of a challenge-response protocol, as sketched above.
 
-Similarly to the security model of lightning channels, a honest party can _always_ win a challenge under honest-majority of miners. Therefore, it is game-theoretically losing to attempt cheating in a channel.
+Similarly to the security model of lightning channels, an honest party can _always_ win a challenge under the honest-majority of miners. Therefore, it is game-theoretically losing to attempt cheating in a channel.
 
 ## CoinPool
 
@@ -243,13 +244,13 @@ Instead of an `OP_STARK` operator in L1, one could think of compiling the `OP_ST
 
 Note that covenants with a bounded "recursion depth" are sufficient to express `OP_STARK`, which in turns imply the ability to express arbitrary functions within contracts using the challenge protocol.
 
-One advantage of this approach is that no new cryptographic assumptions are added to bitcoin's layer 1 even if OP_STARK does require it; moreover, if different or better OP_STARK2 is discovered, the innovation can reach layer 2 contracts without any change needed in layer 1.
+One advantage of this approach is that no new cryptographic assumptions are added to bitcoin's layer&nbsp;1 even if OP_STARK does require it; moreover, if a different or better `OP_STARK2` is discovered, the innovation can reach layer&nbsp;2 contracts without any change needed in layer&nbsp;1.
 
 ## Optimistic rollups
 
-John Light recently posted a [research report](https://bitcoinrollups.org) on how Validity Rollups could be added to bitcoin's layer 1. While no exact proposal is pushed forward, the suggested changes required might include a combination of recursive covenants, and specific opcodes for validity proof verification.
+John Light recently posted a [research report](https://bitcoinrollups.org) on how Validity Rollups could be added to bitcoin's layer&nbsp;1. While no exact proposal is pushed forward, the suggested changes required might include a combination of recursive covenants, and specific opcodes for validity proof verification.
 
-Fraud proofs are the core for optimistic rollups; exploring the possibility of implementing optimistic rollups with MATT covenants seems a promising direction. Because of the simplicity of the required changes to Script, this might answer some of the [cost and risks](https://bitcoinrollups.org/#section-6-the-costs-and-risks-of-validity-rollups) analyzed in the report, while providing many of the same benefits. Notably, no novel cryptography needs to become part of bitcoin's layer 1.
+Fraud proofs are the core for optimistic rollups; exploring the possibility of implementing optimistic rollups with MATT covenants seems a promising direction. Because of the simplicity of the required changes to Script, this might answer some of the [costs and risks](https://bitcoinrollups.org/#section-6-the-costs-and-risks-of-validity-rollups) analyzed in the report, while providing many of the same benefits. Notably, no novel cryptography needs to become part of bitcoin's layer&nbsp;1.
 
 Optimistic Rollups would probably require a fully recursive version of the covenant (while fraud proofs alone are possible with a limited recursion depth).
 
@@ -257,7 +258,7 @@ Optimistic Rollups would probably require a fully recursive version of the coven
 
 Antoine Poinsot suggested an improvement to the original proposed covenant opcodes, which were limited to taproot outputs without a valid key-path spend.
 
-The author would like to thank catenocrypt, Antoine Riard, Ruben Somsen and the participants to the BTCAzores unconference for many useful discussions and comments on early versions of this proposal.
+The author would like to thank catenocrypt, Antoine Riard, Ruben Somsen and the participants of the BTCAzores unconference for many useful discussions and comments on early versions of this proposal.
 
 # References
 
