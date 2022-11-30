@@ -1,5 +1,5 @@
 # General smart contracts in bitcoin via covenants
-**Salvatore Ingala**
+**Salvatore Ingala** - [@salvatoshi](https://twitter.com/salvatoshi)
 
 Covenants are UTXOs that are encumbered with restrictions on the *outputs* of the transaction spending the UTXO. More formally, we can define a *covenant* any UTXO such that at least one of its spending conditions is valid only if one or more of the outputs' `scriptPubKey` satisfies certain restrictions.
 
