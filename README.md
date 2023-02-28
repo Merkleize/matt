@@ -1,3 +1,9 @@
+Quick links:
+- [WIP: Formalization of the MATT Opcodes](https://github.com/ariard/bitcoin-contracting-primitives-wg/issues/25)
+- [Original bitcoin-dev post](https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2022-November/021182.html)
+  - [Example of fraud proof protocol instance](https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2022-November/021205.html)
+
+
 # General smart contracts in bitcoin via covenants
 **Salvatore Ingala** − [@salvatoshi](https://twitter.com/salvatoshi)
 
@@ -182,23 +188,11 @@ TODO: double check if the math above is sound
 
 ## Changes to Script
 
-The following might be some minimal new opcodes to add for taproot transactions in order to enable the construction above. This is a very preliminary proposal, and not yet complete nor correct.
-- `OP_SHA256CAT`: returns the SHA256 hash of the concatenation of the second and the first (top) element of the stack. (redundant if `OP_CAT` is enabled, even just on operands with total length up to 64 bytes)
-- `OP_CHECKINPUTCOVENANTVERIFY`: let *x*, *d* be the two top elements of the stack; behave like `OP_SUCCESS` if any of *x* and *d* is not exactly 32 bytes; otherwise, check that the *x* is a valid x-only pubkey, and the internal pubkey *P* is indeed obtained by tweaking *lift_x(x)* with *d*.
-- `OP_INSPECTNUMINPUTS`, `OP_INSPECTNUMOUTPUTS`, `OP_INSPECTINPUTVALUE` and `OP_INSPECTOUTPUTVALUE` - opcodes to push number on the stack of inputs/outputs and their amounts.
-- `OP_CHECKOUTPUTCOVENANTVERIFY`: given a number *out_i* and three 32-byte hash elements *x*, *d* and *taptree* on top of the stack, verifies that the *out_i*-th output is a P2TR output with internal key computed as above, and tweaked with *taptree*. This is the actual covenant opcode.
+Check out the discussion in the [Bitcoin Contracting Primitives Working Group](https://github.com/ariard/bitcoin-contracting-primitives-wg/issues/25)
 
-TODO:
-- Many contracts need parties to provide additional data; simply passing it via the witness faces the problem that it could be malleated. Therefore, a way of passing signed data is necessary. One way to address this problem could be to add a commitment to the data in the annex, and add an opcode to verify such commitment. Since the annex is covered by the signature, this removes any malleability. Another option is an `OP_CHECKSIGFROMSTACK` opcode, but that would cost an additional signature check.
-- Bitcoin numbers in current Script are not large enough for amounts.
+---
 
-Other observations:
-- `OP_CHECKINPUTCOVENANTVERIFY` and `OP_CHECKOUTPUTCOVENANTVERIFY` could have a mode where *x* is replaced with a NUMS pubkey, for example if the first operand is an empty array of bytes instead of a 32 byte pubkey; this saves about 31 bytes when no internal pubkey is needed (so about 62 bytes for a typical contract transition using both opcodes)
-- Is it worth adding other introspection opcodes, for example `OP_INSPECTVERSION`, `OP_INSPECTLOCKTIME`? See [Liquid](https://github.com/ElementsProject/elements/blob/master/doc/tapscript_opcodes.md).
-- Is there any malleability issue? Can covenants "run" without signatures, or is a signature always to be expected when using spending conditions with the covenant encumbrance? That might be useful in contracts where no signature is required to proceed with the protocol (for example, any party could feed valid data to the bisection protocol above).
-- Adding some additional opcodes to manipulate stack elements might also bring performance improvements in applications (but not strictly necessary for feasibility).
-
-*Remark:* the [additional introspection opcodes available in Blockstream Liquid](https://github.com/ElementsProject/elements/blob/master/doc/tapscript_opcodes.md) do indeed seem to allow MATT covenants; in fact, the opcodes `OP_CHECKINPUTCOVENANTVERIFY` and `OP_CHECKOUTPUTCOVENANTVERIFY` could be replaced by more general opcodes like the group \{`OP_TWEAKVERIFY`, `OP_INSPECTINPUTSCRIPTPUBKEY`, `OP_PUSHCURRENTINPUTINDEX`, `OP_INSPECTOUTPUTSCRIPTPUBKEY` \}.
+*Remark:* the [additional introspection opcodes available in Blockstream Liquid](https://github.com/ElementsProject/elements/blob/master/doc/tapscript_opcodes.md) do indeed seem to allow MATT covenants; in fact, the opcodes `OP_CHECKINPUTCOVENANTVERIFY` and `OP_CHECKOUTPUTCOVENANTVERIFY` could be replaced by more general opcodes like the group \{`OP_TWEAKVERIFY`, `OP_INSPECTINPUTSCRIPTPUBKEY`, `OP_PUSHCURRENTINPUTINDEX`, `OP_INSPECTOUTPUTSCRIPTPUBKEY` \}; malleability issues can be handled with `OP_CHECKSIGFROMSTACK`.
 
 ### Variant: bounded recursivity
 
