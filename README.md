@@ -4,6 +4,8 @@ Quick links:
   - [Example of fraud proof protocol instance](https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2022-November/021205.html)
 - [Vaults in the MATT framework](https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2023-April/021588.html) and [code example](https://github.com/bitcoin-inquisition/bitcoin/compare/24.0...bigspider:bitcoin-inquisition:matt-vault)
 - [MATT plays Rock-Paper-Scissors](https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2023-May/021599.html) + [errata](https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2023-May/021604.html)
+- [(Early draft) Eltoo with MATT](https://gist.github.com/bigspider/041ebd0842c0dcc74d8af087c1783b63)
+
 
 # General smart contracts in bitcoin via covenants
 **Salvatore Ingala** − [@salvatoshi](https://twitter.com/salvatoshi)
