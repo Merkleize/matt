@@ -9,7 +9,7 @@ Quick links:
 - [Vaults in the MATT framework](https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2023-April/021588.html) and [code example](https://github.com/bitcoin-inquisition/bitcoin/compare/24.0...bigspider:bitcoin-inquisition:matt-vault)
 - [MATT plays Rock-Paper-Scissors](https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2023-May/021599.html) + [errata](https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2023-May/021604.html)
 - [(Early draft) Eltoo with MATT](https://gist.github.com/bigspider/041ebd0842c0dcc74d8af087c1783b63)
-
+- [Johan Torås Halseth](https://twitter.com/johanth)'s demonstration of [CoinPools exit clause](https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2023-May/021719.html) using MATT and Merkle trees. [(docs)](https://github.com/halseth/tapsim/tree/matt-demo/examples/matt/coinpool) + [(code)](https://github.com/halseth/tapsim/blob/matt-demo/examples/matt/coinpool/script.txt)
 
 # General smart contracts in bitcoin via covenants
 **Salvatore Ingala** − [@salvatoshi](https://twitter.com/salvatoshi)
