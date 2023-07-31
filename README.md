@@ -2,8 +2,12 @@ Start here:
 - [Presentation at Advancing Bitcoin Conference − London, March 2nd, 2023](https://www.youtube.com/watch?v=56_rItUgrbA)
 - [Slides](https://docs.google.com/presentation/d/1VCHJhXXzjn3qggQfNTZ3Ikiwi4QaXQYZzqkAea-QCBc/edit)
 
-Quick links:
+Latest specs and code:
 - [WIP: Formalization of the MATT Opcodes](https://github.com/ariard/bitcoin-contracting-primitives-wg/issues/25#issuecomment-1595762674)
+- [OP_CHECKCONTRACTVERIFY](https://github.com/Merkleize/bitcoin/tree/checkcontractverify) - Implementation on top of bitcoin-inquisition of the main opcode, `OP_CHECKCONTRACTVERIFY`. It includes some functional tests.
+- [OP_CHECKCONTRACTVERIFY + OP_CAT](https://github.com/Merkleize/bitcoin/tree/matt) - Same as the above, but it includes `OP_CAT`, which enables the complete MATT construction.
+
+Quick links:
 - [Original bitcoin-dev post](https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2022-November/021182.html)
   - [Example of fraud proof protocol instance](https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2022-November/021205.html)
 - [Vaults in the MATT framework](https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2023-April/021588.html) and [code example](https://github.com/bitcoin-inquisition/bitcoin/compare/24.0...bigspider:bitcoin-inquisition:matt-vault)
