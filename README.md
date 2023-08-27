@@ -7,6 +7,7 @@ Latest specs and code:
 - [WIP: Formalization of the MATT Opcodes](https://github.com/ariard/bitcoin-contracting-primitives-wg/issues/25#issuecomment-1595762674)
 - [OP_CHECKCONTRACTVERIFY](https://github.com/Merkleize/bitcoin/tree/checkcontractverify) - Implementation on top of bitcoin-inquisition of the main opcode, `OP_CHECKCONTRACTVERIFY`. It includes some functional tests.
 - [OP_CHECKCONTRACTVERIFY + OP_CAT](https://github.com/Merkleize/bitcoin/tree/matt) - Same as the above, but it includes `OP_CAT`, which enables the complete MATT construction.
+- [Docker image](https://github.com/Merkleize/docker) of bitcoin-inquisition + `OP_CHECKCONTRACTVERIFY` + `OP_CAT` for regtest.
 
 Quick links:
 - [Original bitcoin-dev post](https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2022-November/021182.html)
