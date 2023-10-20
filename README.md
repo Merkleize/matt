@@ -3,11 +3,12 @@ Start here:
 - [Presentation at Advancing Bitcoin Conference − London, March 2nd, 2023](https://www.youtube.com/watch?v=56_rItUgrbA)
   - [Slides](https://docs.google.com/presentation/d/1VCHJhXXzjn3qggQfNTZ3Ikiwi4QaXQYZzqkAea-QCBc/edit)
 
-Latest specs and code:
+Latest specs:
 - [WIP: Formalization of the MATT Opcodes](https://github.com/ariard/bitcoin-contracting-primitives-wg/issues/25#issuecomment-1595762674)
-- [OP_CHECKCONTRACTVERIFY](https://github.com/Merkleize/bitcoin/tree/checkcontractverify) - Implementation on top of bitcoin-inquisition of the main opcode, `OP_CHECKCONTRACTVERIFY`. It includes some functional tests.
-- [OP_CHECKCONTRACTVERIFY + OP_CAT](https://github.com/Merkleize/bitcoin/tree/matt) - Same as the above, but it includes `OP_CAT`, which enables the complete MATT construction.
+
+Code:
 - [Docker image](https://github.com/Merkleize/docker) of bitcoin-inquisition + `OP_CHECKCONTRACTVERIFY` + `OP_CAT` for regtest.
+- [pymatt](https://github.com/Merkleize/pymatt) Python framework for MATT smart contracts, and examples.
 
 Quick links:
 - [Original bitcoin-dev post](https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2022-November/021182.html)
