@@ -2,6 +2,7 @@ Start here:
 - [Gentle introduction on StackExchange](https://bitcoin.stackexchange.com/questions/119239/what-are-matt-opcodes/119268#119268)
 - [Presentation at Advancing Bitcoin Conference − London, March 2nd, 2023](https://www.youtube.com/watch?v=56_rItUgrbA)
   - [Slides](https://docs.google.com/presentation/d/1VCHJhXXzjn3qggQfNTZ3Ikiwi4QaXQYZzqkAea-QCBc/edit)
+- [FAQ](FAQ.md)
 
 Latest specs:
 - [WIP: Formalization of the MATT Opcodes](https://github.com/ariard/bitcoin-contracting-primitives-wg/issues/25#issuecomment-1595762674)
