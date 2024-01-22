@@ -38,7 +38,7 @@ Yes, the core functionality of MATT is quite basic, and it's possible to obtain 
 
 - `OP_CAT` (concatenate two elements)
 - introspection of input/output script and amounts
-- `OP_TWEAK` (scalar multiplication of a secp256k1)
+- `OP_TWEAK` (scalar multiplication of a secp256k1 point)
 
 Of course, optimizing the opcodes to the typical pattern of MATT contracts helps its usability and the script size of the constructions using it.
 
@@ -65,7 +65,7 @@ The most commonly used optimistic protocol in bitcoin today is in a Lightning ch
 
 ### Do MATT contracts need fraud proofs?
 
-No! Constructions that have been proposed by building on other covenant proposals do not need fraud proofs if implemented with MATT.
+No!
 
 Fraud proof protocols are one of the things that can be built with MATT¸ and can be used as a building block for other smart contracts. They greatly expand the realm of what's possible in Bitcoin Script. 
 
