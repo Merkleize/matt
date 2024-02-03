@@ -200,7 +200,7 @@ Another approach could be a completely new SegWit version, which would allow mor
 
 ### How does MATT compare with BitVM?
 
-[BitVM](https://bitvm.org/bitvm.pdf) is the remarkable discovery that a channel (among two or more fixed parties) that allows fraud proofs for arbitrary computations is possible today in bitcoin. Such channels are known in academic literature as *state channels*, and they can be considered a generalization of lightning channel where the two parties are able to play an arbitrary game. The game can be played entirely off-chain if there's cooperation; otherwise, the other parties can *force* the game to be played on-chain.
+[BitVM](https://bitvm.org/bitvm.pdf) is the remarkable discovery that a channel (among two or more fixed parties) that allows fraud proofs for arbitrary computations is possible today in bitcoin. Such channels are known in academic literature as *state channels*, and they can be considered a generalization of lightning channels where the parties are able to play an arbitrary game. The game can be played entirely off-chain if there's cooperation; otherwise, the other parties can *force* the game to be played on-chain.
 
 However, MATT is more general, as it enables contracts that implement arbitrary on-chain state machines, rather than just *channels*.
 
