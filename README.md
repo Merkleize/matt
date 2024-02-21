@@ -106,7 +106,7 @@ While the covenant approach does indeed enable a chain of transactions to perfor
 
 The fundamental fact that a blockchain's layer&nbsp;1 never *actually* needs to run complex programs in order to enable arbitrary complex smart contracting was observed in the past, for example in this [2016 post by Greg Maxwell](https://bitcointalk.org/index.php?topic=1427885.msg14601127#msg14601127).
 
-Vitalik Buterin popularized the concept of *[functionality escape velocity](https://vitalik.ca/general/2019/12/26/mvb.html)* to signify the minimum amount of functionality required on layer&nbsp;1 in order to enable anything else to be built on top (that is, on layer&nbsp;2 and beyond).
+Vitalik Buterin popularized the concept of *[functionality escape velocity](https://vitalik.eth.limo/general/2019/12/26/mvb.html)* to signify the minimum amount of functionality required on layer&nbsp;1 in order to enable anything else to be built on top (that is, on layer&nbsp;2 and beyond).
 
 In the following section, we will argue that a simple covenant construction suffices to achieve the functionality escape velocity in the UTXO model.
 
