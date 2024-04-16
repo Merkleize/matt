@@ -78,7 +78,7 @@ However, a rather simple state machine is enough to implement a *fraud proof pro
 
 Therefore, while Script will still only be able to verify relatively simple predicates, it enables smart contracts that depend on the result of arbitrary computation.
 
-Thanks fraud proofs, one can argue that *any possible technology that is interesting for bitcoin could be implemented as a layer two*. That holds even for applications that require cryptographic techniques that are not available to bitcoin's layer 1.
+Thanks to fraud proofs, one can argue that *any possible technology that is interesting for bitcoin could be implemented as a layer two*. That holds even for applications that require cryptographic techniques that are not available to bitcoin's layer 1.
 
 Of course, fraud proofs come with trade-offs that need to be assessed in the context of each specific application.
 
@@ -110,7 +110,7 @@ The most commonly used optimistic protocol in bitcoin today is in a Lightning ch
 
 No!
 
-Fraud proof protocols are one of the things that can be built with MATT¸ and can be used as a building block for other smart contracts. They greatly expand the realm of what's possible in Bitcoin Script. 
+Fraud proof protocols are one of the things that can be built with MATT¸ and can be used as a building block for other smart contracts. They greatly expand the realm of what's possible in Bitcoin Script.
 
 In a certain sense, *any possible layer-2 system can be implemented on Bitcoin using MATT*, thanks to fraud proofs.
 
@@ -125,7 +125,7 @@ A well designed smart contract based on fraud proofs can make sure that actually
 
 Of course, it is still important that fraud proofs *can* be brought and completed on chain if needed.
 
-A ballpark estimate based on a current, unoptimized implementation suggests that a MATT fraud proof will never require more than 15000 vbytes (for a computation with 2^32 = 4 billion steps!), and it's reasonable to expect that, in practice, the total size would rarely go beyond a few thousands.
+A ballpark estimate based on a current, unoptimized implementation suggests that a MATT fraud proof will never require more than 15000 vbytes (for a computation with 2^32 = 4 billion steps!), and it's reasonable to expect that, in practice, the total size would rarely go beyond a few thousands vbytes.
 
 
 ### Could future upgrades of bitcoin Script make fraud proofs unnecessary?
@@ -169,7 +169,7 @@ On the opposite end of the spectrum, a hypothetical *optimistic sidechain* locki
 
 ### Does MATT allow recursive covenants?
 
-This depends on how it is implemented. The current implementation of `OP_CHECKCONTRACTVERIFY` does allow recursion. While many smart contracts do not need recursion, it is useful for some of them. For example, the [vaults](https://github.com/Merkleize/pymatt/tree/master/examples/vault) demo uses it to allow partial revaulting - a nice-to-have, rather than an essential feature.
+This depends on how it is implemented. The current implementation of `OP_CHECKCONTRACTVERIFY` allows recursion. While most smart contracts do not need recursion, it is a useful feature for some of them. For example, the [vaults](https://github.com/Merkleize/pymatt/tree/master/examples/vault) demo uses it to allow partial revaulting - a nice-to-have, rather than an essential feature.
 
 However, it is possible to design opcodes that enable the functionality of MATT without unbounded recursion. A limited recursion depth of a few tens (or perhaps less) transactions is sufficient to implement fraud proof protocols for arbitrary computation.
 
@@ -180,7 +180,8 @@ Yes, there are many possible approaches, and they make different tradeoffs.
 
 `OP_CHECKCONTRACTVERIFY` uses a double *tweak* in order to commit to the data.
 
-A tweak is a technique
+A tweak is a technique that allows to embed a piece of data inside a valid public key. This is used in taproot outputs to allow the pubkey to implicitly 'contain' (in cryptographic terms, it's a *commitment*) the root of the Merkle tree of all the Script spending conditions. `OP_CHECKCONTRACTVERIFY` repeats this trick twice: once to encode
+the data of the smart contract, and another time to contain the regular taproot Merkle tree as expected in Pay-2-Taproot.
 
 Pros:
 - The approach remains fully compatible with Pay-2-Taproot UTXOs.
