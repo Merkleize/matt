@@ -1,23 +1,42 @@
-Start here:
-- [Gentle introduction on StackExchange](https://bitcoin.stackexchange.com/questions/119239/what-are-matt-opcodes/119268#119268)
-- [Presentation at Advancing Bitcoin Conference − London, March 2nd, 2023](https://www.youtube.com/watch?v=56_rItUgrbA)
-  - [Slides](https://docs.google.com/presentation/d/1VCHJhXXzjn3qggQfNTZ3Ikiwi4QaXQYZzqkAea-QCBc/edit)
-- [FAQ](FAQ.md)
+**Start here**<br>
+[Gentle introduction on StackExchange](https://bitcoin.stackexchange.com/questions/119239/what-are-matt-opcodes/119268#119268)<br>
+[FAQ](FAQ.md)
 
-Latest specs:
+
+**Presentations**<br>
+[▶️ Merkleize All The Things](https://www.youtube.com/watch?v=56_rItUgrbA): Advancing Bitcoin Conference − London, March 2nd, 2023. [Slides](https://docs.google.com/presentation/d/1VCHJhXXzjn3qggQfNTZ3Ikiwi4QaXQYZzqkAea-QCBc/edit)<br>
+I introduced MATT, and sketched how it enables scalable fraud proofs for arbitrary computations on bitcoin.
+
+[▶️ sMATT Contracts Zero to Hero](https://youtu.be/BvXI1IOargk?si=dDi-7UdcO8OjCpGh): [btcplusplus](https://btcplusplus.dev/conf/atx24) − Austin, May 3rd, 2024. [Slides](https://docs.google.com/presentation/d/1mcAJgPr7sBUZvT_0CBgY4NlkhUPiTpreUM4_YVx_g4o/edit)<br>
+I presented MATT and the pymatt Python framework, and how to use it to implement [James O’Beirne's vaults](https://jameso.be/vaults.pdf).<br>
+Timestamps:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;[Intro to MATT](https://youtube.com/watch?v=BvXI1IOargk&t=67s)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;[Vaults](https://youtube.com/watch?v=BvXI1IOargk&t=898s)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;[Vault demo](https://youtube.com/watch?v=BvXI1IOargk&t=1573s)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;[Code in pymatt](https://youtube.com/watch?v=BvXI1IOargk&t=1898s)
+<br>
+
+**Latest specs**
 - [WIP: Formalization of the MATT Opcodes](https://github.com/ariard/bitcoin-contracting-primitives-wg/issues/25#issuecomment-1595762674)
+<br>
+<br>
 
-Code:
+**Code**
 - [Docker image](https://github.com/Merkleize/docker) of bitcoin-inquisition + `OP_CHECKCONTRACTVERIFY` + `OP_CAT` for regtest.
 - [pymatt](https://github.com/Merkleize/pymatt) Python framework for MATT smart contracts, and examples.
+<br>
 
-Quick links:
+**Quick links**
 - [Original bitcoin-dev post](https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2022-November/021182.html)
   - [Example of fraud proof protocol instance](https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2022-November/021205.html)
 - [Vaults in the MATT framework](https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2023-April/021588.html) and [code example](https://github.com/bitcoin-inquisition/bitcoin/compare/24.0...bigspider:bitcoin-inquisition:matt-vault)
 - [MATT plays Rock-Paper-Scissors](https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2023-May/021599.html) + [errata](https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2023-May/021604.html)
 - [(Early draft) Eltoo with MATT](https://gist.github.com/bigspider/041ebd0842c0dcc74d8af087c1783b63)
 - [Johan Torås Halseth](https://twitter.com/johanth)'s demonstration of [CoinPools exit clause](https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2023-May/021719.html) using MATT and Merkle trees. [(docs)](https://github.com/halseth/tapsim/tree/matt-demo/examples/matt/coinpool) + [(code)](https://github.com/halseth/tapsim/blob/matt-demo/examples/matt/coinpool/script.txt)
+
+
+*What follows is the original post about MATT. The details about the implementation are outdated.*
+
 
 # General smart contracts in bitcoin via covenants
 **Salvatore Ingala** − [@salvatoshi](https://twitter.com/salvatoshi)
