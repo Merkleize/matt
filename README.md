@@ -4,10 +4,10 @@
 
 
 **Presentations**<br>
-[▶️ Merkleize All The Things](https://www.youtube.com/watch?v=56_rItUgrbA): Advancing Bitcoin Conference − London, March 2nd, 2023. [Slides](https://docs.google.com/presentation/d/1VCHJhXXzjn3qggQfNTZ3Ikiwi4QaXQYZzqkAea-QCBc/edit)<br>
+[▶️ Merkleize All The Things](https://www.youtube.com/watch?v=56_rItUgrbA). *Advancing Bitcoin Conference − London, March 2nd, 2023*. [Slides](https://docs.google.com/presentation/d/1VCHJhXXzjn3qggQfNTZ3Ikiwi4QaXQYZzqkAea-QCBc/edit)<br>
 I introduced MATT, and sketched how it enables scalable fraud proofs for arbitrary computations on bitcoin.
 
-[▶️ sMATT Contracts Zero to Hero](https://youtu.be/BvXI1IOargk?si=dDi-7UdcO8OjCpGh): [btcplusplus](https://btcplusplus.dev/conf/atx24) − Austin, May 3rd, 2024. [Slides](https://docs.google.com/presentation/d/1mcAJgPr7sBUZvT_0CBgY4NlkhUPiTpreUM4_YVx_g4o/edit)<br>
+[▶️ sMATT Contracts Zero to Hero](https://youtu.be/BvXI1IOargk?si=dDi-7UdcO8OjCpGh). *btc++ − Austin, May 3rd, 2024*. [Slides](https://docs.google.com/presentation/d/1mcAJgPr7sBUZvT_0CBgY4NlkhUPiTpreUM4_YVx_g4o/edit)<br>
 I presented MATT and the pymatt Python framework, and how to use it to implement [James O’Beirne's vaults](https://jameso.be/vaults.pdf).<br>
 Timestamps:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;[Intro to MATT](https://youtube.com/watch?v=BvXI1IOargk&t=67s)<br>
@@ -18,7 +18,6 @@ Timestamps:<br>
 
 **Latest specs**
 - [WIP: Formalization of the MATT Opcodes](https://github.com/ariard/bitcoin-contracting-primitives-wg/issues/25#issuecomment-1595762674)
-<br>
 <br>
 
 **Code**
@@ -34,6 +33,11 @@ Timestamps:<br>
 - [(Early draft) Eltoo with MATT](https://gist.github.com/bigspider/041ebd0842c0dcc74d8af087c1783b63)
 - [Johan Torås Halseth](https://twitter.com/johanth)'s demonstration of [CoinPools exit clause](https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2023-May/021719.html) using MATT and Merkle trees. [(docs)](https://github.com/halseth/tapsim/tree/matt-demo/examples/matt/coinpool) + [(code)](https://github.com/halseth/tapsim/blob/matt-demo/examples/matt/coinpool/script.txt)
 
+<br>
+<br>
+<br>
+
+---
 
 *What follows is the original post about MATT. The details about the implementation are outdated.*
 
