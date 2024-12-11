@@ -1,3 +1,10 @@
+MATT (acronym for *Merkleize All The Things*) is an approach for bitcoin smart contract that is designed to be extremely simple, yet powerful.<br>
+It could be enabled as a *soft fork* with various combinations of opcodes. The most direct way is based on an opcode called `OP_CHECKCONTRACTVERIFY` (`CCV`).
+
+Such smart contracts have numerous applications: scaling and privacy by enabling more powerful layer 2 constructions, trustless bridges, privacy, and better self-custody with vaults.
+
+By enabling scalable, trustless fraud proof protocols for arbitrary computation, it could be the key to enable permissionless innovation in the bitcoin's layer 2 space, all possible layer 2s, while keeping Bitcoin's layer 1 simple and minimalistic.
+
 **Start here**<br>
 [Gentle introduction on StackExchange](https://bitcoin.stackexchange.com/questions/119239/what-are-matt-opcodes/119268#119268)<br>
 [FAQ](FAQ.md)
@@ -25,12 +32,16 @@ Timestamps:<br>
 - [pymatt](https://github.com/Merkleize/pymatt) Python framework for MATT smart contracts, and examples.
 <br>
 
-**Quick links**
+**Research**
+- [Games in the head (and fraud proofs for the plebs)](https://delvingbitcoin.org/t/games-in-the-head-and-fraud-proofs-for-the-plebs/446): an exploration on how to optimize 2-party fraud proof protocols implemented with MATT, and an estimate of the worst-case on-chain costs.
+- [Aggregate delegated exit for L2 pools](https://delvingbitcoin.org/t/aggregate-delegated-exit-for-l2-pools/297): an approach for a fraud-proof based exit protocol for shared UTXOs that would allow many users to cooperate in order to withdraw their money.
+- [elftrace](https://github.com/halseth/elftrace): Johan Torås Halseth's prototype of a compiler for arbitrary computation to RISC-V, and verify in Bitcoin Script via MATT's fraud proofs.
+
+**bitcoin-dev**
 - [Original bitcoin-dev post](https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2022-November/021182.html)
   - [Example of fraud proof protocol instance](https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2022-November/021205.html)
 - [Vaults in the MATT framework](https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2023-April/021588.html) and [code example](https://github.com/bitcoin-inquisition/bitcoin/compare/24.0...bigspider:bitcoin-inquisition:matt-vault)
 - [MATT plays Rock-Paper-Scissors](https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2023-May/021599.html) + [errata](https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2023-May/021604.html)
-- [(Early draft) Eltoo with MATT](https://gist.github.com/bigspider/041ebd0842c0dcc74d8af087c1783b63)
 - [Johan Torås Halseth](https://twitter.com/johanth)'s demonstration of [CoinPools exit clause](https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2023-May/021719.html) using MATT and Merkle trees. [(docs)](https://github.com/halseth/tapsim/tree/matt-demo/examples/matt/coinpool) + [(code)](https://github.com/halseth/tapsim/blob/matt-demo/examples/matt/coinpool/script.txt)
 
 <br>
