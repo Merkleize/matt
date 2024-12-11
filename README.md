@@ -3,7 +3,7 @@ It could be enabled as a *soft fork* with various combinations of opcodes. The m
 
 Such smart contracts have numerous applications: scaling and privacy by enabling more powerful layer 2 constructions, trustless bridges, privacy, and better self-custody with vaults.
 
-By enabling scalable, trustless fraud proof protocols for arbitrary computation, it could be the key to enable permissionless innovation in the bitcoin's layer 2 space, all possible layer 2s, while keeping Bitcoin's layer 1 simple and minimalistic.
+By enabling scalable fraud proof protocols for arbitrary computations, it would bring permissionless innovation in the bitcoin's layer 2 space, while keeping Bitcoin's layer 1 simple and minimalistic.
 
 **Start here**<br>
 [Gentle introduction on StackExchange](https://bitcoin.stackexchange.com/questions/119239/what-are-matt-opcodes/119268#119268)<br>
