@@ -23,6 +23,7 @@ Timestamps:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;[Code in pymatt](https://youtube.com/watch?v=BvXI1IOargk&t=1898s)
 <br>
 
+
 **Latest specs**
 - [WIP: Formalization of the MATT Opcodes](https://github.com/ariard/bitcoin-contracting-primitives-wg/issues/25#issuecomment-1595762674)
 <br>
@@ -36,6 +37,7 @@ Timestamps:<br>
 - [Games in the head (and fraud proofs for the plebs)](https://delvingbitcoin.org/t/games-in-the-head-and-fraud-proofs-for-the-plebs/446): an exploration on how to optimize 2-party fraud proof protocols implemented with MATT, and an estimate of the worst-case on-chain costs.
 - [Aggregate delegated exit for L2 pools](https://delvingbitcoin.org/t/aggregate-delegated-exit-for-l2-pools/297): an approach for a fraud-proof based exit protocol for shared UTXOs that would allow many users to cooperate in order to withdraw their money.
 - [elftrace](https://github.com/halseth/elftrace): Johan Torås Halseth's prototype of a compiler for arbitrary computation to RISC-V, and verify in Bitcoin Script via MATT's fraud proofs.
+  - [▶️ Optimistic execution of RISC-V in Tapscript](https://youtu.be/byD4N2oLhFY?si=37E1oFbSVISngjo5): Presentation at *btc++ − Austin, May 1st, 2024*.
 
 **bitcoin-dev**
 - [Original bitcoin-dev post](https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2022-November/021182.html)
