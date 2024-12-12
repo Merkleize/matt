@@ -1,7 +1,7 @@
 MATT (acronym for *Merkleize All The Things*) is an approach for bitcoin smart contract that is designed to be extremely simple, yet powerful.<br>
 It could be enabled as a *soft fork* with various combinations of opcodes. The most direct way is based on an opcode called `OP_CHECKCONTRACTVERIFY` (`CCV`).
 
-Such smart contracts have numerous applications: scaling and privacy by enabling more powerful layer 2 constructions, trustless bridges, privacy, and better self-custody with vaults.
+Such smart contracts have numerous applications: scaling and privacy by enabling more powerful layer 2 constructions, trustless bridges, and better self-custody with vaults.
 
 By enabling scalable fraud proof protocols for arbitrary computations, it would bring permissionless innovation in the bitcoin's layer 2 space, while keeping Bitcoin's layer 1 simple and minimalistic.
 
