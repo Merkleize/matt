@@ -1,6 +1,6 @@
 # MATT (Merkleize All The Things)
 
-MATT is a simple yet powerful approach for bitcoin smart contracts that is designed to be extremely simple, yet powerful.<br>
+MATT is an approach for bitcoin smart contracts that is designed to be extremely simple, yet powerful.<br>
 It could be enabled as a *soft fork* with various combinations of opcodes. The most direct way is based on an opcode called <tt>OP_CHECKCONTRACTVERIFY</tt> (<tt>CCV</tt>).
 
 Key applications include:
