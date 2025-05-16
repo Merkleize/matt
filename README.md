@@ -17,7 +17,7 @@ By enabling scalable *fraud proof* protocols for arbitrary computations, it woul
 
 
 **Specs and implementation**<br>
-&nbsp;&nbsp;&nbsp;&nbsp;[BIP draft](https://github.com/bitcoin/bips/pull/1793)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;[BIP-443](https://github.com/bitcoin/bips/blob/master/bip-0443.mediawiki)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;[bitcoin-core implementation](https://github.com/bitcoin/bitcoin/pull/32080)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;[Discussion on the *amount* logic of <tt>OP_CHECKCONTRACTVERIFY</tt>](https://delvingbitcoin.org/t/op-checkcontractverify-and-its-amount-semantic/1527)<br>
 
