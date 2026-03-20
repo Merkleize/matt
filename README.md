@@ -36,7 +36,7 @@ Timestamps:<br>
 <br>
 
 **Programming with MATT**
-- [Docker image](https://github.com/Merkleize/docker) of bitcoin-inquisition + <tt>OP_CHECKCONTRACTVERIFY</tt> + <tt>OP_CAT</tt> + <tt>OP_CTV</tt> for regtest.
+- [Docker image](https://github.com/Merkleize/docker) of bitcoin-inquisition + <tt>OP_CHECKCONTRACTVERIFY</tt> + for regtest.
 - [pymatt](https://github.com/Merkleize/pymatt) Python framework for MATT smart contracts, and examples.
 <br>
 
